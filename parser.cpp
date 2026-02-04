@@ -224,13 +224,13 @@ static void HandleDefinition() {
 }
 
 static void HandleExtern() {
-    auto FunctionAST = ParseExtern();
-    if (FunctionAST != nullptr) {
-        auto *FunctionIR = FunctionAST->codegen();
+    auto SignatureAST = ParseExtern();
+    if (SignatureAST != nullptr) {
+        auto *FunctionIR = SignatureAST->codegen();
         if (FunctionIR != nullptr) {
             fprintf(stderr, "Parsed an extern\n");
             FunctionIR->print(llvm::errs());
-            Signatures[FunctionAST->getName()] = std::move(FunctionAST);
+            Signatures[SignatureAST->getName()] = std::move(SignatureAST);
         }
     } else {
         getNextToken();
@@ -254,7 +254,7 @@ static void HandleTopLevelExpression() {
             InitializeModuleAndManagers();
 
             auto ExprSymbol = ExitOnErr(TheJit->lookup("__anon_expr"));
-            double (*FunctionPointer)() = ExprSymbol.toPtr<double(*)()>();
+            double (*FunctionPointer)() = ExprSymbol.toPtr<double (*)()>();
 
             fprintf(stderr, "Evaluated to %f\n", FunctionPointer());
 
