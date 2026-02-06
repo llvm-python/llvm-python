@@ -1,5 +1,7 @@
 # Kaleidoscope
 
+This is the code for Kaleidoscope tutorial from LLVM website.
+
 ## How to Build
 
 ```bash
