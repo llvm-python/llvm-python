@@ -178,11 +178,7 @@ static std::unique_ptr<ExpressionASTNode> ParseForExpression() {
         return nullptr;
     }
 
-    return std::make_unique<ForExpressionASTNode>(VarName,
-                                                  std::move(Start),
-                                                  std::move(Body),
-                                                  std::move(End),
-                                                  std::move(Step));
+    return std::make_unique<ForExpressionASTNode>(VarName, std::move(Start), std::move(End), std::move(Step), std::move(Body));
 }
 
 static std::unique_ptr<ExpressionASTNode> ParsePrimaryExpression() {
